@@ -11,6 +11,7 @@ const game = (function () {
   function start() {
     init();
     controlGame = setInterval(play, time);
+    document.body.style.backgroundColor = "#88BB83";
   }
 
   function init() {
@@ -27,7 +28,27 @@ const game = (function () {
 
   function stop() {
     clearInterval(controlGame);
-    document.body.style.background = "#f00";
+    document.body.style.backgroundImage = "url('img/game_over.jpeg')";
+  }
+
+  function reset() {
+    // Poner las variables del juego de vuelta a sus valores iniciales
+    time = 50;
+    movement = 20;
+    movementBar = 20;
+    width = document.documentElement.clientWidth - movement;
+    height = document.documentElement.clientHeight - movement;
+
+    // Detener el intervalo de tiempo que controla la ejecución del juego
+    clearInterval(controlGame);
+
+    // Borrar el contenido del canvas del juego
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Dibujar el estado inicial del juego en el canvas
+    drawScore();
+    drawLives();
+    drawLevel();
   }
 
   function play() {
