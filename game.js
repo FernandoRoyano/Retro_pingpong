@@ -11,7 +11,7 @@ const game = (function () {
   function start() {
     init();
     controlGame = setInterval(play, time);
-    document.body.style.backgroundColor = "#88BB83";
+    //document.body.style.backgroundColor = "#88BB83";
   }
 
   function init() {
@@ -31,6 +31,12 @@ const game = (function () {
     document.body.style.backgroundImage = "url('img/game_over.jpeg')";
   }
 
+  function play() {
+    moveBall();
+    moveBar();
+    checkIfLost();
+  }
+
   function reset() {
     // Poner las variables del juego de vuelta a sus valores iniciales
     time = 50;
@@ -45,16 +51,13 @@ const game = (function () {
     // Borrar el contenido del canvas del juego
     context.clearRect(0, 0, canvas.width, canvas.height);
 
+    //controlador de eventos al botón que ejecute la función reset() cuando se pulse el botón.
+    document.getElementById("reset-button").addEventListener("click", reset);
+
     // Dibujar el estado inicial del juego en el canvas
     drawScore();
     drawLives();
     drawLevel();
-  }
-
-  function play() {
-    moveBall();
-    moveBar();
-    checkIfLost();
   }
 
   function checkIfLost() {
